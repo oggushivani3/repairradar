@@ -193,33 +193,35 @@ const DEVICE_DIAGNOSTIC_RULES = {
     }
   ],
 
-  'Phone': [
+  'Mobile': [
     {
-      keywords: ['cracked screen', 'screen broken', 'glass broken', 'display', 'lines', 'black screen', 'touch not working', 'flicker'],
-      cause: 'Fractured front digitizer glass and damaged AMOLED / LCD display panel assembly',
-      secondaryCauses: ['Loose display flex cable connection', 'Touch controller IC fracture', 'Internal OLED ink leakage (purple/black bleeding)'],
+      category: 'Screen & Touch Display',
+      keywords: ['cracked screen', 'screen broken', 'glass broken', 'broken screen', 'display broken', 'black screen', 'touch not working', 'touchscreen', 'green line', 'display lines', 'pink line', 'flickering display', 'screen flicker', 'ghost touch', 'digitizer', 'dead pixels', 'ink bleed', 'touch lag', 'display', 'screen', 'touch'],
+      cause: 'Fractured front digitizer glass / damaged AMOLED or LCD display assembly',
+      secondaryCauses: ['Loose display flex cable connector on motherboard', 'Touch controller IC fracture', 'Internal OLED ink matrix leakage'],
       baseConfidence: 94,
-      confidenceExplanation: 'High certainty — physical trauma directly maps to display panel assembly failure.',
+      confidenceExplanation: 'High certainty — physical trauma and display artifacts map directly to display panel assembly failure.',
       priceMin: 1500,
       priceMax: 7500,
       recommendation: 'Professional Repair',
       recommendationReason: 'Screen replacement requires precision heat guns, water-resistant adhesive gaskets, and ESD-safe pry tools.',
       redFlags: [
-        'Shops using cheap TFT aftermarket screens on AMOLED phones (causes high battery drain and dull colors).',
-        'Ensure the shop tests biometric fingerprint / Face ID sensors before and after installation.',
-        'Beware claims that the motherboard needs replacement for a broken display.'
+        'Shops using cheap TFT aftermarket screens on AMOLED phones (causes high battery drain, washed out colors, and lost fingerprint scanner function).',
+        'Ensure the shop tests biometric in-display fingerprint / Face ID sensors before you leave.',
+        'Beware claims that the motherboard needs replacement for a broken display glass.'
       ],
       nextSteps: [
-        'Test if touch registers on all sections of the screen by dragging an app icon across the entire grid.',
+        'Test if touch registers on all sections of the screen by dragging an app icon across the entire display grid.',
         'Check whether the phone still vibrates, rings, or connects to a computer (proves the motherboard and core OS are intact).',
-        'Back up your device data immediately before handing it to any repair technician.'
+        'Back up your device data immediately before handing it over to any repair technician.'
       ]
     },
     {
-      keywords: ['battery', 'draining fast', 'drain', 'swollen', 'battery life', 'dies quickly', 'shut down'],
-      cause: 'Chemical lithium-ion battery degradation (cycle count exceeded) or background app power drain',
+      category: 'Battery & Power Backup',
+      keywords: ['battery draining fast', 'battery drain', 'battery life', 'swollen battery', 'battery swollen', 'dies quickly', 'shut down suddenly', 'shuts off at 20%', 'shuts off at 30%', 'battery health', 'battery backup', 'battery backup low', 'overheating battery', 'back cover bulging', 'battery dead', 'battery'],
+      cause: 'Chemical lithium-ion battery degradation (cycle threshold exceeded) or swollen battery cell',
       secondaryCauses: ['Motherboard PMIC (Power Management IC) leakage', 'Degraded battery temperature sensor', 'Short circuit on charging rail'],
-      baseConfidence: 87,
+      baseConfidence: 89,
       confidenceExplanation: 'High confidence — lithium batteries naturally lose capacity after 500–800 charge cycles (~2 years of daily use).',
       priceMin: 1200,
       priceMax: 3200,
@@ -236,12 +238,13 @@ const DEVICE_DIAGNOSTIC_RULES = {
       ]
     },
     {
-      keywords: ['charging', 'wont charge', 'not charging', 'loose port', 'slow charging', 'cable falls out'],
-      cause: 'Compacted pocket lint inside charging port or oxidised / damaged USB-C / Lightning pins',
+      category: 'Charging Port & Cable',
+      keywords: ['not charging', 'wont charge', "won't charge", 'charging slowly', 'slow charging', 'loose charging port', 'loose port', 'cable falls out', 'type c loose', 'charger not connecting', 'moisture in port', 'charging issue', 'charging', 'charger', 'type c', 'port'],
+      cause: 'Compacted pocket lint inside USB-C / Lightning port or oxidised / damaged pin daughterboard',
       secondaryCauses: ['Defective charging cable or adapter', 'Sub-board / charging daughterboard failure', 'Damaged battery charging IC'],
-      baseConfidence: 89,
+      baseConfidence: 91,
       confidenceExplanation: 'High confidence — loose cables and intermittent charging are overwhelmingly caused by debris packed into the port socket.',
-      priceMin: 200,
+      priceMin: 250,
       priceMax: 1800,
       recommendation: 'DIY Troubleshooting First',
       recommendationReason: 'Gently cleaning out compacted lint with a wooden toothpick often resolves the issue in 2 minutes for zero cost.',
@@ -256,15 +259,58 @@ const DEVICE_DIAGNOSTIC_RULES = {
       ]
     },
     {
-      keywords: ['water', 'liquid', 'dropped in water', 'wet', 'rain', 'moisture'],
-      cause: 'Liquid ingress causing electrolytic corrosion and short circuits across circuit traces',
+      category: 'Audio, Speaker & Microphone',
+      keywords: ['mic not working', 'microphone not working', 'caller cannot hear', 'mic issue', 'speaker crackling', 'no sound', 'loudspeaker not working', 'earpiece muffled', 'low call volume', 'sound distorted', 'audio not working', 'speaker', 'mic', 'microphone', 'earpiece'],
+      cause: 'Choked acoustic mesh membrane, damaged loudspeaker coil, or failed noise-canceling mic IC',
+      secondaryCauses: ['Dust and grease clogging outer grill mesh', 'Audio codec IC failure on motherboard', 'Water ingress damage on speaker paper cone'],
+      baseConfidence: 87,
+      confidenceExplanation: 'Strong confidence — muffled call audio or crackling sounds usually indicate clogged acoustic grills or blown speaker coils.',
+      priceMin: 350,
+      priceMax: 1800,
+      recommendation: 'DIY Inspection First',
+      recommendationReason: 'Cleaning speaker/mic grills with a soft dry toothbrush often restores 90% of sound volume.',
+      redFlags: [
+        'Do not poke sharp needles into speaker holes as that punctures the waterproof acoustic membrane.',
+        'Check whether Bluetooth earphones or hearing devices are accidentally connected before paying for hardware repair.'
+      ],
+      nextSteps: [
+        'Record a voice note on the Voice Recorder app and listen back to test the primary microphone.',
+        'Clean the ear speaker slit at the top of the glass with a dry soft-bristle brush.',
+        'Make a test phone call on speakerphone to see if secondary speaker works.'
+      ]
+    },
+    {
+      category: 'Camera & Optics',
+      keywords: ['camera blurry', 'camera not focusing', 'camera lens broken', 'cracked camera glass', 'black camera screen', 'camera shaking', 'front camera not working', 'camera crash', 'camera vibrating', 'camera lens', 'camera'],
+      cause: 'Fractured protective sapphire camera lens glass or failure of Optical Image Stabilization (OIS) voice coil',
+      secondaryCauses: ['Dust settled on internal CMOS sensor', 'Camera module ribbon cable unseated', 'Software camera driver glitch'],
+      baseConfidence: 90,
+      confidenceExplanation: 'High confidence — camera buzzing/vibrating or inability to focus points directly to mechanical OIS actuator or lens glass damage.',
+      priceMin: 400,
+      priceMax: 3800,
+      recommendation: 'Professional Repair',
+      recommendationReason: 'Replacing rear camera glass or camera sensor modules requires dust-free bench conditions.',
+      redFlags: [
+        'Never touch the exposed camera sensor lens directly with bare fingers or liquid cleaners.',
+        'Ensure the technician uses genuine OEM camera glass to prevent flare and photo glare.'
+      ],
+      nextSteps: [
+        'Check if the camera glass on the back has hairline cracks or scratches.',
+        'Try switching between 0.5x Ultra-wide, 1x Main, and 3x Telephoto to see if one specific lens works.',
+        'Clear camera app cache in Settings > Apps > Camera > Storage.'
+      ]
+    },
+    {
+      category: 'Liquid / Water Ingress',
+      keywords: ['water damage', 'dropped in water', 'phone dropped in water', 'wet phone', 'rain water', 'liquid spill', 'dropped in toilet', 'submerged in water', 'liquid damage', 'water', 'liquid', 'wet', 'rain', 'moisture'],
+      cause: 'Liquid ingress causing electrolytic corrosion and short circuits across energized motherboard traces',
       secondaryCauses: ['Corroded charging sub-board', 'Damaged backlight booster circuit', 'Microphone/speaker membrane waterlogging'],
-      baseConfidence: 85,
+      baseConfidence: 86,
       confidenceExplanation: 'High confidence — liquid exposure causes rapid corrosion on energized circuit board traces.',
       priceMin: 1200,
       priceMax: 4500,
       recommendation: 'Professional Repair',
-      recommendationReason: 'Requires immediate ultrasonic board cleaning with isopropyl alcohol and corrosion mitigation.',
+      recommendationReason: 'Requires immediate ultrasonic board cleaning with 99% isopropyl alcohol and corrosion mitigation.',
       redFlags: [
         'DO NOT put the phone in rice — rice dust enters ports, absorbs moisture poorly, and delays vital cleaning.',
         'DO NOT plug the phone into a charger while wet; electricity accelerates irreversible electrolytic corrosion.'
@@ -274,8 +320,51 @@ const DEVICE_DIAGNOSTIC_RULES = {
         'Remove SIM tray and shake out excess water. Pat dry with a microfiber towel.',
         'Take it to a repair center with ultrasonic cleaning equipment as soon as possible.'
       ]
+    },
+    {
+      category: 'Network, Signal & SIM',
+      keywords: ['no service', 'no network', 'sim not detected', 'sim card not working', 'searching for network', 'wifi not connecting', 'bluetooth not working', 'call dropping', 'signal issue', 'no signal', 'sim'],
+      cause: 'Baseband modem IC desoldering, damaged RF antenna coaxial cable, or SIM tray contact pin deformation',
+      secondaryCauses: ['Carrier APN profile misconfiguration', 'Outdated carrier settings', 'Damaged SIM card chip'],
+      baseConfidence: 83,
+      confidenceExplanation: 'Strong confidence — "No Service" or "Searching" on an undamaged phone points to RF transceiver or SIM reader contacts.',
+      priceMin: 500,
+      priceMax: 3200,
+      recommendation: 'DIY Check First',
+      recommendationReason: 'Testing with another SIM card or resetting network settings takes 2 minutes before paying for hardware repair.',
+      redFlags: [
+        'Always test your SIM card in a family member’s phone first to rule out telecom operator network outage.',
+        'Beware shops quoting expensive motherboard replacements before checking antenna cable continuity.'
+      ],
+      nextSteps: [
+        'Remove SIM tray and inspect the gold contacts on the SIM card for scratches or dust.',
+        'Dial *#06# on phone keypad: if the IMEI number shows up, the modem is alive; if blank, modem IC is damaged.',
+        'Perform "Reset Network Settings" in Settings > System > Reset options.'
+      ]
+    },
+    {
+      category: 'System Performance & Motherboard',
+      keywords: ['phone hanging', 'freezing', 'stuck on logo', 'bootloop', 'restarting continuously', 'auto restart', 'very slow', 'lagging', 'phone dead', 'wont turn on', 'not turning on', 'hanging', 'boot loop'],
+      cause: 'Corrupted OS boot partition, failing UFS internal flash storage, or cold solder joint on SoC/CPU',
+      secondaryCauses: ['Storage full (over 98% capacity)', 'Corrupt recent system update', 'Power management IC failure'],
+      baseConfidence: 84,
+      confidenceExplanation: 'Strong confidence — repeating logo restarts (bootloops) indicate firmware partition corruption or failing internal NAND/UFS flash memory.',
+      priceMin: 800,
+      priceMax: 4200,
+      recommendation: 'Professional Repair',
+      recommendationReason: 'Board-level CPU reballing or flashing requires specialized service box programmers.',
+      redFlags: [
+        'Ensure the technician does not format your data without informing you, as firmware flashing can wipe files.',
+        'Do not let unauthorized shops perform excessive heat gun rework on the motherboard.'
+      ],
+      nextSteps: [
+        'Try a forced hard restart: Hold Volume Down + Power button together continuously for 15 seconds.',
+        'Attempt booting into Recovery Mode (Power + Volume Up) to wipe cache partition.',
+        'Ensure battery has at least 30 minutes of uninterrupted charge on an authentic wall adapter.'
+      ]
     }
   ],
+  'Phone': null, // Aliased to Mobile below
 
   'Laptop': [
     {
@@ -511,43 +600,129 @@ const DEVICE_DIAGNOSTIC_RULES = {
 
   'TV': [
     {
-      keywords: ['black screen', 'no picture', 'sound but no picture', 'sound works', 'dark screen', 'backlight'],
-      cause: 'Burned out LED backlight strips behind the LCD display panel',
-      secondaryCauses: ['Backlight LED driver inverter circuit failure on power supply board', 'Faulty T-Con (timing controller) board', 'Loose panel ribbon cable'],
-      baseConfidence: 92,
-      confidenceExplanation: 'High confidence — hearing sound and dialogue while the picture is completely black is the textbook hallmark of LED backlight failure.',
+      category: 'LED Backlight & Panel Lighting',
+      keywords: ['sound but no picture', 'sound works no display', 'black screen', 'dark screen', 'no picture', 'no display', 'faint image', 'flashlight test shows picture', 'half screen dark', 'backlight burned', 'screen black but sound is coming', 'audio but no video', 'dim screen', 'backlight'],
+      cause: 'Burned out LED backlight strips / failed constant-current LED driver circuit',
+      secondaryCauses: ['Backlight inverter board MOSFET short', 'Faulty T-Con (timing controller) board power rail', 'Loose LVDS panel flex ribbon cable'],
+      baseConfidence: 93,
+      confidenceExplanation: 'High confidence — hearing sound and dialogue while the picture is completely black is the textbook hallmark of LED backlight strip failure.',
       priceMin: 1500,
       priceMax: 4500,
       recommendation: 'Hire a Pro',
-      recommendationReason: 'Replacing backlight strips requires fully peeling off the fragile glass LCD panel without cracking it.',
+      recommendationReason: 'Replacing backlight strips requires fully suction-lifting and peeling off the fragile glass LCD panel without cracking it.',
       redFlags: [
         'Shops claiming you need a complete display panel replacement (often ₹12,000+) when backlight strips cost only ₹1,500–₹3,500.',
-        'Ask the technician to replace all LED strips together rather than patching just one faulty LED diode.'
+        'Always demand that the technician replace the FULL set of LED strips rather than patching just 1 blown diode.'
       ],
       nextSteps: [
-        'Perform the flashlight test: turn the TV on in a dark room with sound playing, and shine a torch at a 45° angle 2 inches from the glass. If you can see faint picture silhouettes, backlights are blown.',
-        'Check if the TV menu or volume overlay appears on screen.',
-        'Disconnect all external HDMI devices and observe if the TV logo flashes momentarily on boot.'
+        'Flashlight Test: Turn the TV on in a dark room with sound playing, and shine your phone torch 2 inches from the glass at a 45° angle. If you see faint ghostly silhouettes, the backlights are 100% blown.',
+        'Check if the TV menu or volume bar numbers appear on the screen when pressing remote buttons.',
+        'Disconnect all external HDMI cables to confirm the issue is not a faulty set-top box.'
       ]
     },
     {
-      keywords: ['lines', 'vertical lines', 'horizontal lines', 'distorted', 'screen lines', 'flicker'],
-      cause: 'Faulty T-Con board, loose LVDS ribbon cables, or delaminated COF (Chip-on-Film) bonding tabs',
-      secondaryCauses: ['Physical panel pressure crack', 'Internal glass substrate liquid damage', 'Graphics processing engine defect on mainboard'],
-      baseConfidence: 82,
+      category: 'Display Lines & T-Con Board',
+      keywords: ['vertical lines', 'horizontal lines', 'lines on screen', 'screen lines', 'color bars', 'screen flickering', 'flickering', 'double image', 'ghosting', 'distorted picture', 'color patch', 'horizontal line', 'vertical line', 'lines', 'flicker'],
+      cause: 'Faulty T-Con (Timing Controller) board, delaminated COF (Chip-on-Film) bonding tabs, or loose LVDS ribbon',
+      secondaryCauses: ['Physical panel pressure crack', 'Internal glass substrate liquid damage from cleaning spray', 'Graphics processing engine defect on mainboard'],
+      baseConfidence: 86,
       confidenceExplanation: 'Strong confidence — organized colored lines across the screen indicate communication failures between the timing controller and display driver ICs.',
       priceMin: 1200,
       priceMax: 5500,
       recommendation: 'Hire a Pro',
-      recommendationReason: 'T-Con board replacement or COF bonding requires specialized tab-bonding equipment.',
+      recommendationReason: 'T-Con board replacement or COF bonding requires specialized tab-bonding laser/heat equipment.',
       redFlags: [
-        'Check if lines appeared after cleaning the TV with spray cleaner; liquid dripping into the bottom bezel causes irreversible COF corrosion.',
-        'If the internal glass matrix is physically cracked, repair is uneconomical.'
+        'Liquid damage trap: Spraying Colin or glass cleaner directly onto the TV screen allows liquid to run down into the bottom bezel, corroding the COF tabs permanently.',
+        'If the internal glass matrix is physically fractured, panel replacement usually exceeds 70% of new TV cost.'
       ],
       nextSteps: [
         'Gently press the bottom bezel near the lines to see if they flicker or change color (points to loose tab bonding).',
         'Test on multiple inputs (HDMI, YouTube, USB) to ensure the lines are not originating from a set-top box or cable.',
         'Unplug the TV from mains power for 15 minutes to allow all residual processor cache to reset.'
+      ]
+    },
+    {
+      category: 'Power Supply & Motherboard',
+      keywords: ['not turning on', "won't turn on", 'wont turn on', 'red light blinking', 'standby light blinking', 'clicking sound', 'no power', 'dead tv', 'tripping mcb', 'tv turns off automatically', 'power light blinking', 'wont power on', 'power'],
+      cause: 'Blown primary fuse / bulging filter capacitors on SMPS power supply board or standby micro-controller failure',
+      secondaryCauses: ['Main motherboard processor short circuit', 'Blown varistor due to lightning / power surge', 'Stuck power button on TV chassis'],
+      baseConfidence: 89,
+      confidenceExplanation: 'High confidence — red standby light blinking patterns or relay clicks indicate power supply overload protection is kicking in.',
+      priceMin: 800,
+      priceMax: 3800,
+      recommendation: 'Hire a Pro',
+      recommendationReason: 'SMPS power supply boards carry 300V+ DC on primary filter capacitors and require component-level bench repair.',
+      redFlags: [
+        'Technicians demanding an entire motherboard replacement (₹6,000+) when replacing two ₹50 capacitors on the power board fixes it.',
+        'Count the exact number of red LED blinks; the blink code (e.g. 2 blinks, 5 blinks, 6 blinks) pinpoints the exact faulty board.'
+      ],
+      nextSteps: [
+        'Unplug the TV from the wall socket, hold down the physical power button on the TV itself for 30 seconds, then reconnect and try again.',
+        'Test the wall socket with another appliance (like a lamp or phone charger) to ensure the MCB has not tripped.',
+        'Count the blink pattern of the red/blue standby LED light (e.g., blinks 6 times then pauses).'
+      ]
+    },
+    {
+      category: 'Audio, Speakers & Sound',
+      keywords: ['no sound', 'picture but no sound', 'sound crackling', 'audio buzzing', 'distorted audio', 'speaker rattling', 'volume stuck', 'tv sound not working', 'muffled sound', 'sound', 'audio', 'speaker'],
+      cause: 'Damaged cone on internal down-firing stereo speakers or blown audio amplifier IC on main motherboard',
+      secondaryCauses: ['TV audio output accidentally set to Optical / External ARC in settings', 'Corrupted sound driver firmware', 'Loose speaker connector wire'],
+      baseConfidence: 88,
+      confidenceExplanation: 'Strong confidence — having clear video but buzzing, crackling, or missing audio directly isolates the internal speaker drivers or amplifier rail.',
+      priceMin: 500,
+      priceMax: 2200,
+      recommendation: 'DIY Check First',
+      recommendationReason: 'Verifying sound output settings or connecting an external soundbar / 3.5mm speaker can solve this immediately.',
+      redFlags: [
+        'Check TV Audio Settings > Speaker Output to ensure it has not switched from "Internal TV Speaker" to "Headphones / Bluetooth / Optical".',
+        'Replacing internal TV speakers is inexpensive (₹500–₹1,200); do not pay motherboard replacement rates.'
+      ],
+      nextSteps: [
+        'Open TV Settings > Sound > Sound Output and verify "TV Speaker" is selected.',
+        'Connect headphones or external Bluetooth/AUX speaker: if sound works through headphones, only the internal TV speakers are blown.',
+        'Perform a Sound Self-Diagnosis Test in the TV Support menu.'
+      ]
+    },
+    {
+      category: 'HDMI, Smart OS & Connectivity',
+      keywords: ['hdmi no signal', 'hdmi not working', 'no signal', 'wifi not connecting', 'apps crashing', 'smart tv hanging', 'remote not responding', 'stuck on smart tv logo', 'internet not working', 'youtube not opening', 'wifi', 'hdmi', 'apps'],
+      cause: 'Corrupted Smart TV eMMC firmware cache or ESD damaged HDMI receiver controller chip',
+      secondaryCauses: ['Defective HDMI cable or loose port pins', 'WiFi module antenna ribbon loose', 'Outdated Smart TV OS firmware'],
+      baseConfidence: 85,
+      confidenceExplanation: 'Strong confidence — "No Signal" on specific HDMI inputs or apps crashing is usually a software cache freeze or port ESD damage.',
+      priceMin: 400,
+      priceMax: 2800,
+      recommendation: 'DIY Troubleshooting First',
+      recommendationReason: 'Factory resetting the Smart TV or changing the HDMI cable resolves over 75% of these connectivity issues.',
+      redFlags: [
+        'Try another HDMI cable and test with a laptop before assuming the TV motherboard port is dead.',
+        'Never plug/unplug HDMI cables while the TV and set-top box are both running, as static electricity can fry the HDMI controller chip.'
+      ],
+      nextSteps: [
+        'Disconnect the TV power plug for 5 minutes, reboot your home WiFi router, and try reconnecting.',
+        'Switch HDMI cables and try connecting into HDMI 2 or HDMI 3 port.',
+        'Go to Settings > Support > Reset to Initial Settings / Factory Reset.'
+      ]
+    },
+    {
+      category: 'Physical Panel Glass Damage',
+      keywords: ['cracked screen', 'broken glass panel', 'panel crack', 'spiderweb screen', 'ink bleeding', 'hit with toy', 'hit by object', 'physical damage', 'broken tv'],
+      cause: 'Internal indium-tin-oxide matrix glass fracture and liquid crystal leakage from physical impact',
+      secondaryCauses: ['Cracked diffuser acrylic plate', 'Damaged edge-bonding flex connections'],
+      baseConfidence: 96,
+      confidenceExplanation: 'High certainty — spiderweb cracks and black ink blotches confirm irreparable physical panel trauma.',
+      priceMin: 8000,
+      priceMax: 25000,
+      recommendation: 'Consider Replacement',
+      recommendationReason: 'A new replacement screen panel costs 70% to 90% of the price of an entire brand new Smart TV.',
+      redFlags: [
+        'There is no "glass only" repair for modern LED TVs; the glass and liquid crystals are fused into one panel unit.',
+        'Beware scammers promising to "polish" or "fix" cracked TV glass for cheap; it is physically impossible.'
+      ],
+      nextSteps: [
+        'Check your home contents insurance or credit card purchase protection policy for accidental damage coverage.',
+        'If the TV is older than 2 years, purchasing a new 4K TV is much more economical than buying a replacement panel.',
+        'Sell the working internal boards (power board, motherboard, T-Con, speakers) on the second-hand market to recover ₹2,000–₹4,000.'
       ]
     }
   ],
@@ -637,6 +812,27 @@ const DEVICE_DIAGNOSTIC_RULES = {
       ]
     }
   ]
+}
+
+// Ensure Mobile and Phone map to the same comprehensive ruleset
+DEVICE_DIAGNOSTIC_RULES['Phone'] = DEVICE_DIAGNOSTIC_RULES['Mobile']
+
+/**
+ * Normalizes user device selection or text input to standard keys
+ */
+export function normalizeDevice(d) {
+  const s = (d || '').toLowerCase().trim()
+  if (s.includes('phone') || s.includes('mobile') || s.includes('cell') || s.includes('smartphone')) return 'Mobile'
+  if (s.includes('tv') || s.includes('television') || s.includes('screen') || s.includes('led')) return 'TV'
+  if (s.includes('laptop') || s.includes('notebook') || s.includes('macbook') || s.includes('pc')) return 'Laptop'
+  if (s.includes('wash') || s.includes('dryer') || s.includes('laundry')) return 'Washing Machine'
+  if (s.includes('refrigerat') || s.includes('fridge')) return 'Refrigerator'
+  if (s.includes('ac') || s.includes('air cond') || s.includes('cooling')) return 'AC'
+  if (s.includes('bike') || s.includes('motorcycle') || s.includes('scooter') || s.includes('activa')) return 'Bike'
+  if (s.includes('car') || s.includes('auto') || s.includes('vehicle')) return 'Car'
+  if (s.includes('fan')) return 'Fan'
+  if (s.includes('microwave') || s.includes('oven')) return 'Microwave'
+  return d || 'Mobile'
 }
 
 // Generic fallback rules for any device type or unlisted symptom
@@ -831,7 +1027,7 @@ export function validateProblemText(problem, device = 'device', brand = '', mode
  */
 export function diagnoseLocally({ device, problem, brand = '', model = '', age = null }) {
   const normProblem = (problem || '').toLowerCase().trim()
-  const normDevice = device || 'Phone'
+  const normDevice = normalizeDevice(device)
   
   // Validate problem input for meaningful symptoms and reject gibberish/random characters
   const validation = validateProblemText(problem, normDevice, brand, model)
@@ -839,26 +1035,40 @@ export function diagnoseLocally({ device, problem, brand = '', model = '', age =
     throw new Error(validation.error)
   }
 
-  // 1. Search device-specific rules
-  const deviceRules = DEVICE_DIAGNOSTIC_RULES[normDevice] || []
+  // 1. Search device-specific rules and track all matching keywords
+  const deviceRules = DEVICE_DIAGNOSTIC_RULES[normDevice] || DEVICE_DIAGNOSTIC_RULES['Mobile'] || []
   let bestMatch = null
-  let maxMatchedKeywords = 0
+  let maxMatchedScore = 0
+  const allMatchedKeywords = []
 
   for (const rule of deviceRules) {
-    let matches = 0
+    let ruleScore = 0
     for (const kw of rule.keywords) {
       if (normProblem.includes(kw)) {
-        matches += kw.split(' ').length // weight multi-word matches higher
+        allMatchedKeywords.push(kw)
+        // Multi-word matches carry higher diagnostic specificity
+        ruleScore += kw.split(' ').length * 2
       }
     }
-    if (matches > maxMatchedKeywords) {
-      maxMatchedKeywords = matches
+    if (ruleScore > maxMatchedScore) {
+      maxMatchedScore = ruleScore
       bestMatch = rule
     }
   }
 
+  // Deduplicate and filter identified keywords to show the cleanest symptom terms
+  const rawUnique = [...new Set(allMatchedKeywords)].sort((a, b) => b.length - a.length)
+  const identifiedKeywords = []
+  for (const kw of rawUnique) {
+    // Avoid redundant sub-words if a multi-word phrase was already added
+    const alreadyCovered = identifiedKeywords.some(existing => existing.includes(kw) && existing !== kw)
+    if (!alreadyCovered) {
+      identifiedKeywords.push(kw)
+    }
+  }
+
   // 2. If matched a device-specific rule
-  if (bestMatch && maxMatchedKeywords > 0) {
+  if (bestMatch && maxMatchedScore > 0) {
     // Dynamic confidence score calculation based on specificity and detail length
     let confidence = bestMatch.baseConfidence
     
@@ -911,31 +1121,41 @@ export function diagnoseLocally({ device, problem, brand = '', model = '', age =
         'Inspect the device visually for physical damage or loose external cables.',
         'Test power outlet and safety switches before dismantling.',
         'Obtain a quote from at least two local repair shops to prevent overcharging.'
-      ]
+      ],
+      identifiedKeywords,
+      matchedCategory: bestMatch.category || null,
+      deviceCategory: normDevice
     }
   }
 
   // 3. Fallback: match generic categories
+  const fallbackKeywords = []
   for (const cat of GENERIC_DIAGNOSTIC_CATEGORIES) {
     for (const kw of cat.keywords) {
       if (normProblem.includes(kw)) {
-        const confidence = normProblem.length > 40 ? 68 : 55
-        return {
-          cause: `${cat.cause} on ${normDevice}`,
-          secondaryCauses: [`Intermittent connection or circuit board fault on ${normDevice}`, 'Component aging and thermal stress'],
-          confidence,
-          confidenceExplanation: `Moderate confidence (${confidence}%) — symptoms point toward a ${cat.category.toLowerCase()} issue, but further physical testing is needed to confirm the exact failing part.`,
-          priceMin: cat.priceMin,
-          priceMax: cat.priceMax,
-          recommendation: cat.recommendation,
-          recommendationReason: cat.recommendationReason,
-          redFlags: cat.redFlags,
-          nextSteps: [
-            `Disconnect ${normDevice} from mains power safely before physical inspection.`,
-            'Check for visible wire wear, odd smells, or loose mechanical fastenings.',
-            'Note any error messages, unusual sounds, or indicator light blinks to tell the technician.'
-          ]
-        }
+        fallbackKeywords.push(kw)
+      }
+    }
+    if (fallbackKeywords.length > 0) {
+      const confidence = normProblem.length > 40 ? 68 : 55
+      return {
+        cause: `${cat.cause} on ${normDevice}`,
+        secondaryCauses: [`Intermittent connection or circuit board fault on ${normDevice}`, 'Component aging and thermal stress'],
+        confidence,
+        confidenceExplanation: `Moderate confidence (${confidence}%) — symptoms point toward a ${cat.category.toLowerCase()} issue, but further physical testing is needed to confirm the exact failing part.`,
+        priceMin: cat.priceMin,
+        priceMax: cat.priceMax,
+        recommendation: cat.recommendation,
+        recommendationReason: cat.recommendationReason,
+        redFlags: cat.redFlags,
+        nextSteps: [
+          `Disconnect ${normDevice} from mains power safely before physical inspection.`,
+          'Check for visible wire wear, odd smells, or loose mechanical fastenings.',
+          'Note any error messages, unusual sounds, or indicator light blinks to tell the technician.'
+        ],
+        identifiedKeywords: [...new Set(fallbackKeywords)],
+        matchedCategory: cat.category,
+        deviceCategory: normDevice
       }
     }
   }
@@ -958,7 +1178,10 @@ export function diagnoseLocally({ device, problem, brand = '', model = '', age =
       'Verify if the issue happens every time or only under specific usage cycles.',
       'Test wall socket with another appliance to ensure clean electrical supply.',
       'Check if the product is still covered under manufacturer or retailer warranty.'
-    ]
+    ],
+    identifiedKeywords: [],
+    matchedCategory: 'General Hardware',
+    deviceCategory: normDevice
   }
 }
 

@@ -180,7 +180,7 @@ export default function App() {
   }
 
   // AI Advisor
-  const [device, setDevice] = useState('Washing Machine')
+  const [device, setDevice] = useState('Mobile')
   const [problem, setProblem] = useState('')
   const [brand, setBrand] = useState('')
   const [model, setModel] = useState('')
@@ -356,7 +356,7 @@ export default function App() {
   }
 
   // Device chips
-  const devices = ['Phone','Laptop','TV','AC','Refrigerator','Washing Machine','Bike','Car','Fan','Microwave']
+  const devices = ['Mobile', 'TV', 'Laptop', 'Washing Machine', 'Refrigerator', 'AC', 'Bike', 'Car', 'Fan', 'Microwave']
 
   return (
     <div className="App" style={{background:'var(--bg)', color:'var(--text)', minHeight:'100vh', fontFamily:'Inter, system-ui, sans-serif'}}>
@@ -636,6 +636,39 @@ export default function App() {
                   {diagnosis.confidenceExplanation && (
                     <div style={{fontSize:12, color:'var(--muted)', marginBottom:16, lineHeight:1.45, fontStyle:'italic'}}>
                       {diagnosis.confidenceExplanation}
+                    </div>
+                  )}
+
+                  {/* Identified Symptoms & Keywords from user description */}
+                  {diagnosis.identifiedKeywords && diagnosis.identifiedKeywords.length > 0 && (
+                    <div style={{
+                      marginBottom:16, padding:'10px 14px', borderRadius:8,
+                      background:'rgba(195,255,61,0.06)', border:'1px solid rgba(195,255,61,0.22)'
+                    }}>
+                      <div className="label-mono" style={{fontSize:11, color:'var(--accent)', marginBottom:8, display:'flex', alignItems:'center', justifyContent:'space-between', flexWrap:'wrap', gap:6}}>
+                        <span>Identified Symptoms & Keywords</span>
+                        {diagnosis.matchedCategory && (
+                          <span style={{color:'rgba(255,255,255,0.7)', fontWeight:400, fontSize:10.5}}>Category: {diagnosis.matchedCategory}</span>
+                        )}
+                      </div>
+                      <div style={{display:'flex', flexWrap:'wrap', gap:6}}>
+                        {diagnosis.identifiedKeywords.map((kw, i) => (
+                          <span key={i} style={{
+                            fontSize:11.5,
+                            fontFamily:'JetBrains Mono, monospace',
+                            background:'rgba(195,255,61,0.12)',
+                            color:'#fff',
+                            border:'1px solid rgba(195,255,61,0.35)',
+                            padding:'3px 9px',
+                            borderRadius:6,
+                            display:'inline-flex',
+                            alignItems:'center',
+                            gap:5
+                          }}>
+                            <span style={{color:'var(--accent)'}}>✓</span> {kw}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   )}
 

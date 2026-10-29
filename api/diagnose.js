@@ -50,6 +50,8 @@ Guidelines:
 7. "recommendationReason": Brief explanation why.
 8. "redFlags": Array of 2 safety warnings or overcharge traps to watch out for.
 9. "nextSteps": Array of 3 practical, step-by-step diagnostic checks the user can perform.
+10. "identifiedKeywords": Array of 1-4 specific symptom keywords extracted from the problem description (e.g. "cracked screen", "battery draining").
+11. "matchedCategory": Diagnostic category name (e.g. "Screen & Display", "Battery & Power", "Audio & Sound").
 
 Respond ONLY with valid JSON conforming to this schema:
 {
@@ -62,7 +64,9 @@ Respond ONLY with valid JSON conforming to this schema:
   "recommendation": string,
   "recommendationReason": string,
   "redFlags": string[],
-  "nextSteps": string[]
+  "nextSteps": string[],
+  "identifiedKeywords": string[],
+  "matchedCategory": string
 }`
 
       const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`, {
